@@ -62,7 +62,6 @@ class UserAddressesController extends Controller
     public function destroy(UserAddress $user_address)
     {
         $this->authorize('own', $user_address);
-        
         // Ajax into
         $user_address->delete();
         return [];
