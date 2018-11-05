@@ -10,8 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'PagesController@root')->name('root');
+Route::redirect('/', '/products')->name('root');
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function() {
@@ -26,6 +25,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('user_addresses/{user_address}', 'UserAddressesController@edit')->name('user_addresses.edit');
         Route::put('user_addresses/{user_address}', 'UserAddressesController@update')->name('user_addresses.update');
         Route::delete('user_addresses/{user_address}', 'UserAddressesController@destroy')->name('user_addresses.destroy');
+        Route::get('products', 'ProductsController@index')->name('products.index');
     });
 
 });

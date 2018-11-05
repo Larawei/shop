@@ -1,7 +1,10 @@
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav navbar-left">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    Laravel Shop
+                </a>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <!-- 登录注册链接开始 -->
