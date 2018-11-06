@@ -37,10 +37,10 @@ class OrdersController extends Controller
      */
     public function show($id, Content $content)
     {
+        $order = Order::find($id);
         return $content
-            ->header('Detail')
-            ->description('description')
-            ->body($this->detail($id));
+            ->header('订单详情')
+            ->body(view('admin.orders.show', ['order' => $order]));
     }
 
     /**
