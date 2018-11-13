@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\CartService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Monolog\Logger;
 use Yansongda\Pay\Log;
@@ -9,6 +11,7 @@ use Yansongda\Pay\Pay;
 
 class AppServiceProvider extends ServiceProvider
 {
+
     /**
      * Bootstrap any application services.
      *
@@ -16,8 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
     }
+
 
     /**
      * Register any application services.

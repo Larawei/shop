@@ -2,33 +2,41 @@
 @section('title', '我的收藏')
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-10 col-lg-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">我的收藏</div>
-                <div class="panel-body">
-                    <div class="row products-list">
+    <div class="bg-light py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-0"><a href="{{ route('root') }}">首页</a> <span class="mx-2 mb-0">/</span><strong class="text-black">收藏列表</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="site-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-12 order-2">
+                    <div class="row mb-5">
                         @foreach($products as $product)
-                            <div class="col-xs-3 product-item">
-                                <div class="product-content">
-                                    <div class="top">
-                                        <div class="img">
-                                            <a href="{{ route('products.show', ['product' => $product->id]) }}">
-                                                <img src="{{ $product->image_url }}" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="price"><b>￥</b>{{ $product->price }}</div>
-                                        <a href="{{ route('products.show', ['product' => $product->id]) }}">{{ $product->title }}</a>
-                                    </div>
-                                    <div class="bottom">
-                                        <div class="sold_count">销量 <span>{{ $product->sold_count }}笔</span></div>
-                                        <div class="review_count">评价 <span>{{ $product->review_count }}</span></div>
+                            <div class="col-sm-6 col-lg-3 mb-3" data-aos="fade-up">
+                                <div class="block-4 text-center border">
+                                    <figure class="block-4-image">
+                                        <a href="{{ route('products.show', ['product' => $product->id]) }}">
+                                            <img src="{{ $product->image_url }}" alt="Image placeholder" class="img-fluid">
+                                        </a>
+                                    </figure>
+                                    <div class="block-4-text p-4">
+                                        <h3><a href="{{ route('products.show', ['product' => $product->id]) }}">{{ $product->title }}</a></h3>
+                                        <p class="text-primary font-weight-bold">￥{{ $product->price }}</p>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
-                    <div class="pull-right">{{ $products->render() }}</div>
+                    <div class="row" data-aos="fade-up">
+                        <div class="col-md-12 text-center">
+                            <div class="site-block-27">
+                                {{ $products->render() }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -3,81 +3,91 @@
 @section('title', '购物车')
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-10 col-lg-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">我的购物车</div>
-                <div class="panel-body">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th><input type="checkbox" id="select-all"></th>
-                            <th>商品信息</th>
-                            <th>单价</th>
-                            <th>数量</th>
-                            <th>操作</th>
-                        </tr>
-                        </thead>
-                        <tbody class="product_list">
-                        @foreach($cartItems as $item)
+    <div class="site-section">
+        <div class="container">
+            <div class="row mb-5">
+                <form class="col-md-12" method="post">
+                    <div class="site-blocks-table">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select-all"></th>
+                                <th class="product-thumbnail">图片</th>
+                                <th class="product-name">商品信息</th>
+                                <th class="product-price">单价</th>
+                                <th class="product-quantity">数量</th>
+                                <th class="product-total">总价</th>
+                                <th class="product-remove">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($cartItems as $item)
                             <tr data-id="{{ $item->productSku->id }}">
                                 <td>
                                     <input type="checkbox" name="select" value="{{ $item->productSku->id }}" {{ $item->productSku->product->on_sale ? 'checked' : 'disabled' }}>
                                 </td>
-                                <td class="product_info">
-                                    <div class="preview">
-                                        <a target="_blank" href="{{ route('products.show', [$item->productSku->product_id]) }}">
-                                            <img src="{{ $item->productSku->product->image_url }}">
-                                        </a>
-                                    </div>
-                                    <div @if(!$item->productSku->product->on_sale) class="not_on_sale" @endif>
-              <span class="product_title">
-                <a target="_blank" href="{{ route('products.show', [$item->productSku->product_id]) }}">{{ $item->productSku->product->title }}</a>
-              </span>
-                                        <span class="sku_title">{{ $item->productSku->title }}</span>
-                                        @if(!$item->productSku->product->on_sale)
-                                            <span class="warning">该商品已下架</span>
-                                        @endif
-                                    </div>
+                                <td class="product-thumbnail">
+                                    <img src="{{ $item->productSku->product->image_url }}" alt="Image" class="img-fluid">
                                 </td>
-                                <td><span class="price">￥{{ $item->productSku->price }}</span></td>
+                                <td class="product-name">
+                                    <h2 class="h5 text-black">{{ $item->productSku->product->title }} <br> <small>{{ $item->productSku->title }}</small></h2>
+                                </td>
+                                <td>￥{{ $item->productSku->price }}</td>
                                 <td>
-                                    <input type="text" class="form-control input-sm amount" @if(!$item->productSku->product->on_sale) disabled @endif name="amount" value="{{ $item->amount }}">
+                                    <div class="input-group mb-3" style="max-width: 120px;">
+                                        <input type="text" class="form-control text-center amount" @if(!$item->productSku->product->on_sale) disabled @endif name="amount" value="{{ $item->amount }}" >
+                                    </div>
+
                                 </td>
-                                <td>
-                                    <button class="btn btn-xs btn-danger btn-remove">移除</button>
-                                </td>
+                                <td>￥{{ $item->productSku->price * $item->amount }}</td>
+                                <td><button type="button" class="btn btn-primary btn-sm btn-remove">x</button></td>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-
-                    <div>
-                        <form class="form-horizontal" role="form" id="order-form">
-                            <div class="form-group">
-                                <label class="control-label col-sm-3">选择收货地址</label>
-                                <div class="col-sm-9 col-md-7">
-                                    <select class="form-control" name="address">
-                                        @foreach($addresses as $address)
-                                            <option value="{{ $address->id }}">{{ $address->full_address }} {{ $address->contact_name }} {{ $address->contact_phone }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-3">备注</label>
-                                <div class="col-sm-9 col-md-7">
-                                    <textarea name="remark" class="form-control" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-3">
-                                    <button type="button" class="btn btn-primary btn-create-order">提交订单</button>
-                                </div>
-                            </div>
-                        </form>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
+                </form>
+            </div>
 
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="text-black h4" for="coupon">优惠码</label>
+                            <p>输入您的优惠码</p>
+                        </div>
+                        <div class="col-md-8 mb-3 mb-md-0">
+                            <input type="text" class="form-control py-3" id="coupon" placeholder="Code">
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-primary btn-sm">使用</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 pl-5">
+                    <div class="row justify-content-end">
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-md-12 text-right border-bottom mb-5">
+                                    <h3 class="text-black h4 text-uppercase">购物车总价</h3>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <span class="text-black">总价</span>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <strong class="text-black">￥{{ $total_price }}</strong>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a class="btn btn-primary btn-lg py-3 btn-block"  href="{{ route('checkout.index') }}">结账</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,58 +132,6 @@
                     // 将其勾选状态设为与目标单选框一致
                     $(this).prop('checked', checked);
                 });
-            });
-
-            // 监听创建订单按钮的点击事件
-            $('.btn-create-order').click(function () {
-                // 构建请求参数，将用户选择的地址的 id 和备注内容写入请求参数
-                var req = {
-                    address_id: $('#order-form').find('select[name=address]').val(),
-                    items: [],
-                    remark: $('#order-form').find('textarea[name=remark]').val(),
-                };
-                // 遍历 <table> 标签内所有带有 data-id 属性的 <tr> 标签，也就是每一个购物车中的商品 SKU
-                $('table tr[data-id]').each(function () {
-                    // 获取当前行的单选框
-                    var $checkbox = $(this).find('input[name=select][type=checkbox]');
-                    // 如果单选框被禁用或者没有被选中则跳过
-                    if ($checkbox.prop('disabled') || !$checkbox.prop('checked')) {
-                        return;
-                    }
-                    // 获取当前行中数量输入框
-                    var $input = $(this).find('input[name=amount]');
-                    // 如果用户将数量设为 0 或者不是一个数字，则也跳过
-                    if ($input.val() == 0 || isNaN($input.val())) {
-                        return;
-                    }
-                    // 把 SKU id 和数量存入请求参数数组中
-                    req.items.push({
-                        sku_id: $(this).data('id'),
-                        amount: $input.val(),
-                    })
-                });
-                axios.post('{{ route('orders.store') }}', req)
-                    .then(function (response) {
-                        swal('订单提交成功', '', 'success')
-                            .then(() => {
-                                location.href = '/orders/' + response.data.id;
-                        });
-                    }, function (error) {
-                        if (error.response.status === 422) {
-                            // http 状态码为 422 代表用户输入校验失败
-                            var html = '<div>';
-                            _.each(error.response.data.errors, function (errors) {
-                                _.each(errors, function (error) {
-                                    html += error+'<br>';
-                                })
-                            });
-                            html += '</div>';
-                            swal({content: $(html)[0], icon: 'error'})
-                        } else {
-                            // 其他情况应该是系统挂了
-                            swal('系统错误', '', 'error');
-                        }
-                    });
             });
 
         });

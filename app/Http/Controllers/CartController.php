@@ -20,9 +20,13 @@ class CartController extends Controller
     public function index(Request $request)
     {
         $cartItems = $this->cartService->get();
-        $addresses = $request->user()->addresses()->orderBy('last_used_at', 'desc')->get();
 
-        return view('cart.index', ['cartItems' => $cartItems, 'addresses' => $addresses]);
+        $total_price = 0;
+        $total_price += collect($cartItems)->map(function($item)  {
+            return $item->productSku->price * $item->amount;
+        })->sum();
+
+        return view('cart.index', ['cartItems' => $cartItems, 'total_price' => $total_price]);
     }
     
     public function add(AddCartRequest $request)

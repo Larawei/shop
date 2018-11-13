@@ -2,85 +2,116 @@
 @section('title', $product->title)
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-10 col-lg-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-body product-info">
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <img class="cover" src="{{ $product->image_url }}" alt="">
-                        </div>
-                        <div class="col-sm-7">
-                            <div class="title">{{ $product->title }}</div>
-                            <div class="price"><label>价格</label><em>￥</em><span>{{ $product->price }}</span></div>
-                            <div class="sales_and_reviews">
-                                <div class="sold_count">累计销量 <span class="count">{{ $product->sold_count }}</span></div>
-                                <div class="review_count">累计评价 <span class="count">{{ $product->review_count }}</span></div>
-                                <div class="rating" title="评分 {{ $product->rating }}">评分 <span class="count">{{ str_repeat('★', floor($product->rating)) }}{{ str_repeat('☆', 5 - floor($product->rating)) }}</span></div>
-                            </div>
-                            <div class="skus">
-                                <label>选择</label>
-                                <div class="btn-group" data-toggle="buttons">
-                                    @foreach($product->skus as $sku)
-                                        <label
-                                                class="btn btn-default sku-btn"
-                                                data-price="{{ $sku->price }}"
-                                                data-stock="{{ $sku->stock }}"
-                                                data-toggle="tooltip"
-                                                title="{{ $sku->description }}"
-                                                data-placement="bottom">
-                                            <input type="radio" name="skus" autocomplete="off" value="{{ $sku->id }}"> {{ $sku->title }}
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="cart_amount"><label>数量</label><input type="text" class="form-control input-sm" value="1"><span>件</span><span class="stock"></span></div>
-                            <div class="buttons">
-                                @if($favored)
-                                    <button class="btn btn-danger btn-disfavor">取消收藏</button>
-                                @else
-                                    <button class="btn btn-success btn-favor">❤ 收藏</button>
-                                @endif
-                                <button class="btn btn-primary btn-add-to-cart">加入购物车</button>
-                            </div>
+    <style>
+        .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+            color: #fff;
+            background-color: #7971ea;
+            border-color: #dee2e6 #dee2e6 #fff;
+            font-weight: 300;
+            border-color: #7971ea;
+        }
+
+        .nav-tabs .nav-link {
+            border: 1px solid transparent;
+            border-top-left-radius: 0rem;
+            border-top-right-radius: 0rem;
+        }
+    </style>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="{{ $product->image_url }}" alt="Image" class="img-fluid">
+                </div>
+                <div class="col-md-6">
+                    <h2 class="text-black">{{ $product->title }}</h2>
+                    <p class="description"></p>
+                    <p><strong class="text-primary h4 price">￥{{ $product->price }}</strong></p>
+                    <div class="skus">
+                        <label>选择</label>
+                        <div class="btn-group" data-toggle="buttons">
+                            @foreach($product->skus as $sku)
+                                <label
+                                        class="btn btn-default sku-btn"
+                                        data-price="{{ $sku->price }}"
+                                        data-stock="{{ $sku->stock }}"
+                                        data-description="{{ $sku->description }}"
+                                        data-toggle="tooltip"
+                                        title="{{ $sku->description }}"
+                                        data-placement="bottom">
+                                    <input type="radio" name="skus" autocomplete="off" value="{{ $sku->id }}"> {{ $sku->title }}
+                                </label>
+                            @endforeach
                         </div>
                     </div>
-                    <div class="product-detail">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#product-detail-tab" aria-controls="product-detail-tab" role="tab" data-toggle="tab">商品详情</a></li>
-                            <li role="presentation"><a href="#product-reviews-tab" aria-controls="product-reviews-tab" role="tab" data-toggle="tab">用户评价</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="product-detail-tab">
-                                {!! $product->description !!}
+                    <div class="stock mb-3">
+                    </div>
+                    <div class="mb-5">
+                        <div class="input-group mb-3" style="max-width: 120px;">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="product-reviews-tab">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
+                            <input type="text" class="form-control text-center amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    @if($favored)
+                        <button class="btn btn-sm btn-dark btn-disfavor">取消收藏</button>
+                    @else
+                        <button class="btn btn-sm btn-primary btn-favor" style="background-color: #a29cf9;">❤收藏</button>
+                    @endif
+
+                    <button class="buy-now btn btn-sm btn-primary btn-add-to-cart">加入购物车</button>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 mt-5">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="nav-item active">
+                            <a class="nav-link active show" href="#product-detail-tab" aria-controls="product-detail-tab" role="tab" data-toggle="tab">商品详情</a>
+                        </li>
+                        <li role="presentation" class="nav-item">
+                            <a class="nav-link" href="#product-reviews-tab" aria-controls="product-reviews-tab" role="tab" data-toggle="tab">用户评价</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-3">
+                        <div role="tabpanel" class="tab-pane active" id="product-detail-tab">
+
+                            {!! $product->description !!}
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="product-reviews-tab">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <td>用户</td>
+                                    <td>商品</td>
+                                    <td>评分</td>
+                                    <td>评价</td>
+                                    <td>时间</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($reviews as $review)
                                     <tr>
-                                        <td>用户</td>
-                                        <td>商品</td>
-                                        <td>评分</td>
-                                        <td>评价</td>
-                                        <td>时间</td>
+                                        <td>{{ $review->order->user->name }}</td>
+                                        <td>{{ $review->productSku->title }}</td>
+                                        <td>{{ str_repeat('★', $review->rating) }}{{ str_repeat('☆', 5 - $review->rating) }}</td>
+                                        <td>{{ $review->review }}</td>
+                                        <td>{{ $review->reviewed_at->format('Y-m-d H:i') }}</td>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($reviews as $review)
-                                        <tr>
-                                            <td>{{ $review->order->user->name }}</td>
-                                            <td>{{ $review->productSku->title }}</td>
-                                            <td>{{ str_repeat('★', $review->rating) }}{{ str_repeat('☆', 5 - $review->rating) }}</td>
-                                            <td>{{ $review->review }}</td>
-                                            <td>{{ $review->reviewed_at->format('Y-m-d H:i') }}</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -89,11 +120,16 @@
 @section('scriptsAfterJs')
     <script>
         $(document).ready(function () {
+
             $('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+
             $('.sku-btn').click(function () {
-                $('.product-info .price span').text($(this).data('price'));
-                $('.product-info .stock').text('库存：' + $(this).data('stock') + '件');
+                $('.price').text('￥' + $(this).data('price'));
+                $('.stock').text('库存：' + $(this).data('stock') + '件');
+                $('.description').text($(this).data('description'));
             });
+
+            $('.sku-btn')[0].click();
 
             // 监听收藏按钮的点击事件
             $('.btn-favor').click(function () {
@@ -130,7 +166,7 @@
                 // 请求加入购物车接口
                 axios.post('{{ route('cart.add') }}', {
                     sku_id: $('label.active input[name=skus]').val(),
-                    amount: $('.cart_amount input').val(),
+                    amount: $('.amount').val(),
                 })
                     .then(function () { // 请求成功执行此回调
                         swal('加入购物车成功', '', 'success')
