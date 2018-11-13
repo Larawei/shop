@@ -1,18 +1,21 @@
 <footer class="site-footer border-top">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 mb-5 mb-lg-0">
+            <div class="col-lg-9 mb-5 mb-lg-0">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h3 class="footer-heading mb-4">购物指南</h3>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h3 class="footer-heading mb-4">配送方式</h3>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h3 class="footer-heading mb-4">支付方式</h3>
                     </div>
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-3">
+                        <h3 class="footer-heading mb-4">售后服务</h3>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
                         <ul class="list-unstyled">
                             <li><a href="#">购物流程</a></li>
                             <li><a href="#">会员介绍</a></li>
@@ -20,29 +23,28 @@
                             <li><a href="#">常见问题</a></li>
                         </ul>
                     </div>
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-3">
                         <ul class="list-unstyled">
                             <li><a href="#">上门自提</a></li>
                             <li><a href="#">211限时达</a></li>
                             <li><a href="#">配送服务查询</a></li>
                         </ul>
                     </div>
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-3">
                         <ul class="list-unstyled">
                             <li><a href="#">货到付款</a></li>
                             <li><a href="#">在线支付</a></li>
                             <li><a href="#">分期付款</a></li>
                         </ul>
                     </div>
+                    <div class="col-md-6 col-lg-3">
+                        <ul class="list-unstyled">
+                            <li><a href="#">售后政策</a></li>
+                            <li><a href="#">价格保护</a></li>
+                            <li><a href="#">退款说明</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-                <h3 class="footer-heading mb-4">广告</h3>
-                <a href="#" class="block-6">
-                    <img src="images/hero_1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
-                    <h3 class="font-weight-light  mb-0">Finding Your Perfect Shoes</h3>
-                    <p>Promo from  nuary 15 &mdash; 25, 2019</p>
-                </a>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="block-5 mb-5">
