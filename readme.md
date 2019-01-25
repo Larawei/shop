@@ -3,4 +3,3 @@
 ![商品详情](https://raw.githubusercontent.com/Larawei/shop/master/resources/github/product-detail.png)
 ![购物车](https://raw.githubusercontent.com/Larawei/shop/master/resources/github/cart.jpg)
 ![订单](https://raw.githubusercontent.com/Larawei/shop/master/resources/github/order.jpg)
-![地址](https://raw.githubusercontent.com/Larawei/shop/master/resources/github/address.jpg)
